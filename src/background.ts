@@ -6,6 +6,18 @@ import blockSite from "./helpers/block-site";
 let __enabled: boolean;
 let __contextMenu: boolean;
 let __blocked: string[];
+const timePeriods = [
+  { start: "11:00", end: "11:10" }, // t1 to t2
+];
+
+const isWithinTimePeriods = (): boolean => {
+  const now = new Date();
+  const currentTime = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+
+  return timePeriods.some(({ start, end }) => {
+    return currentTime >= start && currentTime <= end;
+  });
+};
 
 initStorage().then(() => {
   storage.get(["enabled", "contextMenu", "blocked"]).then(({ enabled, contextMenu, blocked }) => {
@@ -40,7 +52,7 @@ chrome.action.onClicked.addListener(() => {
 });
 
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {
-  if (!__enabled || !__blocked.length) {
+  if (!__enabled || !__blocked.length || !isWithinTimePeriods()) {
     return;
   }
 
@@ -53,7 +65,7 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (!tabId || !__enabled || !__blocked.length) {
+  if (!tabId || !__enabled || !__blocked.length || !isWithinTimePeriods()) {
     return;
   }
 
