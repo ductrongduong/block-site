@@ -1,13 +1,22 @@
 import initStorage from "./storage/init";
 import storage from "./storage";
-import recreateContextMenu from "./helpers/recreate-context-menu";
 import blockSite from "./helpers/block-site";
 
-let __enabled: boolean;
-let __contextMenu: boolean;
-let __blocked: string[];
+const __enabled: boolean = true;
+const __blocked: string[] = [
+  "*youtube*",
+  "*facebook*",
+  "*instagram*",
+  "*tiktok*",
+  "*shopee*",
+  "*mail*",
+  "*viet69*",
+  "*rphang*",
+  "*porn*",
+  "*sex*",
+];
 const timePeriods = [
-  { start: "11:00", end: "11:10" }, // t1 to t2
+  { start: "01:00", end: "23:00" },
 ];
 
 const isWithinTimePeriods = (): boolean => {
@@ -20,30 +29,31 @@ const isWithinTimePeriods = (): boolean => {
 };
 
 initStorage().then(() => {
-  storage.get(["enabled", "contextMenu", "blocked"]).then(({ enabled, contextMenu, blocked }) => {
-    __enabled = enabled;
-    __contextMenu = contextMenu;
-    __blocked = blocked;
+  // eslint-disable-next-line no-empty-pattern
+  storage.get(["enabled", "contextMenu", "blocked"]).then(({}) => {
+    // __enabled = enabled;
+    // __contextMenu = contextMenu;
+    // __blocked = blocked;
 
-    recreateContextMenu(__enabled && __contextMenu);
+    // recreateContextMenu(__enabled && __contextMenu);
   });
 
-  chrome.storage.local.onChanged.addListener((changes) => {
-    if (changes["enabled"]) {
-      __enabled = changes["enabled"].newValue as boolean;
-    }
+  chrome.storage.local.onChanged.addListener(() => {
+    // if (changes["enabled"]) {
+    //   __enabled = changes["enabled"].newValue as boolean;
+    // }
 
-    if (changes["contextMenu"]) {
-      __contextMenu = changes["contextMenu"].newValue as boolean;
-    }
+    // if (changes["contextMenu"]) {
+    //   __contextMenu = changes["contextMenu"].newValue as boolean;
+    // }
 
-    if (changes["enabled"] || changes["contextMenu"]) {
-      recreateContextMenu(__enabled && __contextMenu);
-    }
+    // if (changes["enabled"] || changes["contextMenu"]) {
+    //   recreateContextMenu(__enabled && __contextMenu);
+    // }
 
-    if (changes["blocked"]) {
-      __blocked = changes["blocked"].newValue as string[];
-    }
+    // if (changes["blocked"]) {
+    //   __blocked = changes["blocked"].newValue as string[];
+    // }
   });
 });
 
