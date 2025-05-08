@@ -9,7 +9,6 @@ const __blocked: string[] = [
   "*instagram*",
   "*tiktok*",
   "*shopee*",
-  "*mail*",
   "*viet69*",
   "*rphang*",
   "*porn*",
