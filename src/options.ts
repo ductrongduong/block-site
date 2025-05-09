@@ -8,8 +8,8 @@ const UI = (() => {
     // contextMenu: document.getElementById("context-menu") as HTMLSelectElement,
     // blockedList: document.getElementById("blocked-list") as HTMLTextAreaElement,
     resolution: document.getElementById("resolution") as HTMLSelectElement,
-    counterShow: document.getElementById("counter-show") as HTMLSelectElement,
-    counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
+    // counterShow: document.getElementById("counter-show") as HTMLSelectElement,
+    // counterPeriod: document.getElementById("counter-period") as HTMLSelectElement,
   };
 
   // elements.blockedList.placeholder = BLOCKED_EXAMPLE.join("\n");
@@ -40,15 +40,15 @@ const UI = (() => {
     storage.set({ resolution });
   });
 
-  elements.counterShow.addEventListener("change", (event) => {
-    const counterShow = stringToBoolean(getEventTargetValue(event));
-    storage.set({ counterShow });
-  });
-
-  elements.counterPeriod.addEventListener("change", (event) => {
-    const counterPeriod = getEventTargetValue(event) as CounterPeriod;
-    storage.set({ counterPeriod });
-  });
+  // elements.counterShow.addEventListener("change", (event) => {
+  //   const counterShow = stringToBoolean(getEventTargetValue(event));
+  //   storage.set({ counterShow });
+  // });
+  //
+  // elements.counterPeriod.addEventListener("change", (event) => {
+  //   const counterPeriod = getEventTargetValue(event) as CounterPeriod;
+  //   storage.set({ counterPeriod });
+  // });
 
   const init = <T extends Partial<Schema>>(items: T) => {
     // if (items.enabled !== undefined) {
@@ -74,14 +74,14 @@ const UI = (() => {
       document.body.classList.add(`resolution-${items.resolution}`);
     }
 
-    if (items.counterShow !== undefined) {
-      elements.counterShow.value = booleanToString(items.counterShow);
-      document.body.classList.toggle("counter-show", items.counterShow);
-    }
+    // if (items.counterShow !== undefined) {
+    //   elements.counterShow.value = booleanToString(items.counterShow);
+    //   document.body.classList.toggle("counter-show", items.counterShow);
+    // }
 
-    if (items.counterPeriod !== undefined) {
-      elements.counterPeriod.value = items.counterPeriod;
-    }
+    // if (items.counterPeriod !== undefined) {
+    //   elements.counterPeriod.value = items.counterPeriod;
+    // }
   };
 
   return { elements, init };
