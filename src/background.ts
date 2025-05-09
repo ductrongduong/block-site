@@ -16,7 +16,8 @@ const __blocked: string[] = [
   "*sex*",
 ];
 const timePeriods = [
-  { start: "01:00", end: "23:00" },
+  { start: "01:00", end: "17:29" },
+  { start: "18:00", end: "23:00" },
 ];
 
 const isWithinTimePeriods = (): boolean => {
